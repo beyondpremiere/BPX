@@ -1,26 +1,45 @@
+// Dashboard.js
 import { useState } from 'react';
 import TitleGenerator from '../components/TitleGenerator';
-import '../styles/dashboard.css'; // Import the CSS file with the correct relative path
+import SEOAnalyzer from '../components/SEOAnalyzer';
 
-// Separate the template components into their own functional components
-const Template1 = () => (
-  <div className="roundedRectangle">
+import KeywordResearch from '../components/KeywordResearch';
+import VideoTitleGenerator from '../components/VideoTitleGenerator';
+import '../styles/dashboard.css';
+
+// Define templates with their associated widgets
+const YouTubeCreatorTemplate = () => (
+  <div className="Template1">
+    <h2>YouTube Creator Tools</h2>
+    <VideoTitleGenerator />
     <TitleGenerator />
   </div>
 );
-const Template2 = () => <div>Content for Template 2</div>;
+
+const SEOTemplate = () => (
+  <div className="Template2">
+    <h2>SEO Tools</h2>
+    <SEOAnalyzer />
+    <KeywordResearch />
+    <TitleGenerator />
+  </div>
+);
+
 const Template3 = () => <div>Content for Template 3</div>;
 
 export default function Dashboard() {
   // Define available templates
   const templates = [
-    { name: 'Template 1', component: Template1 },
-    { name: 'Template 2', component: Template2 },
+    { name: 'YouTube Creator', component: YouTubeCreatorTemplate },
+    { name: 'SEO', component: SEOTemplate },
     { name: 'Template 3', component: Template3 },
   ];
 
   // State to keep track of the selected template
   const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
+
+  // Assign the selected component to a capitalized variable
+  const SelectedComponent = selectedTemplate.component;
 
   return (
     <>
@@ -45,7 +64,7 @@ export default function Dashboard() {
       <main>
         <h1>Selected Template: {selectedTemplate.name}</h1>
         {/* Render the content of the selected template */}
-        <selectedTemplate.component />
+        <SelectedComponent />
       </main>
     </>
   );
